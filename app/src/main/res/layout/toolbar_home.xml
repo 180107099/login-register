@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logo">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:rotationX="-10"
+            android:rotationY="10"
+            android:src="@drawable/ic_baseline_near_me_24"
+            android:translationX="250dp"
+            android:visibility="visible">
+
+        </ImageView>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+</com.google.android.material.appbar.AppBarLayout>

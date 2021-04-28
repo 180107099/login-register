@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.instagram1.model.UserHelperClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,8 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
     private Button register;
     private TextView loginUser;
 
+    FirebaseAuth auth;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
-
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         loginUser = findViewById(R.id.login_user);
 
+
         loginUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,16 +64,27 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txtUsername = username.getText().toString();
-                String txtName =name.getText().toString();
-                String txtEmail = email.getText().toString();
-                String txtPassword = password.getText().toString();
+                String txtUsername = username.getText().toString().trim();
+                String txtName =name.getText().toString().trim();
+                String txtEmail = email.getText().toString().trim();
+                String txtPassword = password.getText().toString().trim();
 
                 if(TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName) ||
                         TextUtils.isEmpty(txtPassword) || TextUtils.isEmpty(txtEmail)){
                     Toast.makeText(RegisterActivity.this,"Empty credentials!", Toast.LENGTH_SHORT).show();
                 } else if (txtPassword.length()<6){
                     Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
+                }else{
+                    rootNode = FirebaseDatabase.getInstance();
+                    reference = rootNode.getReference("users");
+
+                    UserHelperClass helperClass = new UserHelperClass (txtName, txtUsername, txtEmail, txtPassword);
+                    reference.child(txtUsername).child("info").setValue(helperClass);
+                    Toast.makeText(RegisterActivity.this,"Регимтрация прошло успешно!", Toast.LENGTH_SHORT).show();
+                    username.setText("");
+                    name.setText("");
+                    email.setText("");
+                    password.setText("");
                 }
 
             }
