@@ -22,6 +22,7 @@ import com.example.instagram1.LoginActivity;
 import com.example.instagram1.Message;
 import com.example.instagram1.R;
 import com.example.instagram1.RegisterActivity;
+import com.example.instagram1.constants.Constants;
 import com.example.instagram1.data.SharedPrefsHelper;
 import com.example.instagram1.data.UserAdapter;
 import com.example.instagram1.data.postAdapter;
@@ -34,8 +35,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,7 +49,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
 
     SharedPrefsHelper sharedPrefs ;
-
 
     private postAdapter postAdapter;
     private List<addPost1> posts;
@@ -68,8 +71,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         sharedPrefs = new SharedPrefsHelper(getContext());
-
-
         ImageView message = (ImageView) getView().findViewById(R.id.message);
         message.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,11 +92,9 @@ public class HomeFragment extends Fragment {
 
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
                     addPost1 post = snapshot1.getValue(addPost1.class);
-
-
-
                     posts.add(post);
                 }
+                Collections.reverse(posts);
                 postAdapter = new postAdapter(getContext(), posts,str);
                 recyclerView.setAdapter(postAdapter);
             }

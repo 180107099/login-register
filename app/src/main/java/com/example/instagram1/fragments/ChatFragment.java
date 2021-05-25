@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,7 @@ public class ChatFragment extends Fragment {
         mUser = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("users");
+        StorageReference str = FirebaseStorage.getInstance().getReference().child("post");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,7 +107,7 @@ public class ChatFragment extends Fragment {
 
                 }
                 Log.d("++++++",mUser.size()+"");
-                userAdapter = new UserAdapter(getContext(),mUser);
+                userAdapter = new UserAdapter(getContext(),mUser,str);
                 recyclerView.setAdapter(userAdapter);
             }
 

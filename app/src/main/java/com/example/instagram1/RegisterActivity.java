@@ -53,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
         loginUser = findViewById(R.id.login_user);
+        String bio = "";
 
 
         loginUser.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                     rootNode = FirebaseDatabase.getInstance();
                     reference = rootNode.getReference("users");
 
-                    UserHelperClass helperClass = new UserHelperClass (txtName, txtUsername, txtEmail, txtPassword);
+                    UserHelperClass helperClass = new UserHelperClass (txtName, txtUsername, txtEmail, txtPassword,bio);
                     reference.child(txtUsername).child("info").setValue(helperClass);
                     Toast.makeText(RegisterActivity.this,"Регимтрация прошло успешно!", Toast.LENGTH_SHORT).show();
                     username.setText("");

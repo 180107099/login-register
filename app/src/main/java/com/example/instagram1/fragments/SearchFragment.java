@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,8 @@ public class SearchFragment extends Fragment {
 
     private void readUsers() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+        StorageReference str = FirebaseStorage.getInstance().getReference().child("post");
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,11 +95,11 @@ public class SearchFragment extends Fragment {
                     UserGetItem user = snapshot1.getValue(UserGetItem.class);
 
                     Log.e(">>>>>>>", sharedPrefs.getUsername() +" | "+user.getInfo().getName());
-                    if(!sharedPrefs.getUsername().equals(user.getInfo().getName()))
+                    if(!sharedPrefs.getUsername().equals(user.getInfo().getUsername()))
                         mUser.add(user);
                 }
 
-                userAdapter = new UserAdapter (getContext(), mUser);
+                userAdapter = new UserAdapter (getContext(), mUser,str);
                 recyclerView.setAdapter(userAdapter);
             }
 
@@ -109,7 +113,7 @@ public class SearchFragment extends Fragment {
 
     private void searchUsers(String s){
         Query query = FirebaseDatabase.getInstance().getReference().child("users")
-                .orderByChild("username").startAt(s).endAt(s+"\uf8ff");
+                .orderByKey().startAt(s).endAt(s+"\uf8ff");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,6 +128,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                readUsers();
 
             }
         });

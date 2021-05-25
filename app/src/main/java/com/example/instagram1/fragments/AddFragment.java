@@ -170,9 +170,6 @@ public class AddFragment extends Fragment {
             String mail1= sharedPrefs.getUsername();
             reference.child(mail1).child("Post").child(time).setValue(helperClass);
 
-
-
-
             storageReference = FirebaseStorage.getInstance().getReference("post");
 
             // Code for showing progressDialog while uploading

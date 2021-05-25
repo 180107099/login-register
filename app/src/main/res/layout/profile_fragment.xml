@@ -30,8 +30,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/aboutUs"
-                android:text="About us"
+                android:id="@+id/profile_edit"
+                android:text="Edit profile"
                 android:background="@drawable/button_background"
                 android:layout_marginTop="15dp"
                 android:padding="10dp"/>
@@ -47,7 +47,7 @@
     </com.google.android.material.navigation.NavigationView>
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -70,7 +70,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/profile_username"
+                        android:id="@+id/profile_username_set"
                         android:maxLines="1"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -193,6 +193,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:text="Edit profile"
+                            android:textStyle="bold"
                             android:background="@drawable/button_background" />
 
                     </LinearLayout>
@@ -224,44 +226,54 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/last_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="-5dp"
-                    android:background="@drawable/button_background"
-                    android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/my_fotos"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="0dp"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <com.google.android.material.tabs.TabLayout
+                        app:tabSelectedTextColor="@color/black"
+                        android:id="@+id/tabLayoutPr"
+                        android:background="@color/colorAccent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_grid" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
 
-                    <ImageButton
-                        android:id="@+id/saved_fotos"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_save" />
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/saveFotoTab"
+                            android:background="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:icon="@drawable/ic_grid"
 
+                            />
 
-                </LinearLayout>
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/myFotoTab"
+                            android:layout_width="wrap_content"
+                            android:background="@color/white"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:layout_height="wrap_content"
+                            android:icon="@drawable/ic_save"
+                            />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    </com.google.android.material.tabs.TabLayout>
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPagerPr"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tabLayoutPr"
+                        tools:ignore="MissingConstraints" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </LinearLayout>

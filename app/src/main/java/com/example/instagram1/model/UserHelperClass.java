@@ -2,18 +2,26 @@ package com.example.instagram1.model;
 
 
 public class UserHelperClass {
-    private String name, username, email, password;
+    private String name, username, email, password,bio;
 
     public UserHelperClass() {
 
     }
 
-    public UserHelperClass(String name, String username, String email, String password) {
+    public UserHelperClass(String name, String username, String email, String password, String bio) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.bio = bio;
+    }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getName() {
